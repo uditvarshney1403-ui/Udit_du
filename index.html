@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IntraDay Live – Real-Time Stock Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="header-left">
+      <span class="logo">📈 IntraDay Live</span>
+      <span class="tagline">5 Top Stocks · Updated Every 30 s</span>
+    </div>
+    <div class="header-right">
+      <span id="market-badge" class="badge badge--closed">Market Closed</span>
+      <span class="clock" id="clock"></span>
+    </div>
+  </header>
+
+  <!-- ===== DATA SOURCE NOTICE ===== -->
+  <div id="data-notice" class="data-notice hidden">
+    <span>⚠️ Live API unavailable – showing realistic simulated intraday data.</span>
+  </div>
+
+  <!-- ===== MAIN GRID ===== -->
+  <main class="stocks-grid" id="stocks-grid">
+    <!-- cards injected by JS -->
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <span id="last-updated">Last updated: –</span>
+    <span class="refresh-info">Auto-refresh every 30 s &nbsp;|&nbsp; Data via Yahoo Finance (simulation fallback)</span>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
