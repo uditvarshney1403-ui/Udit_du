@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intraday Stocks — Live Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1>📈 Intraday Stock Tracker</h1>
+      <div class="header-meta">
+        <span id="market-status" class="badge badge-closed">Market Closed</span>
+        <span id="clock"></span>
+      </div>
+    </div>
+    <p class="subtitle">Live real-time quotes for 5 top US stocks — updates every 15 seconds</p>
+  </header>
+
+  <main>
+    <!-- API key notice -->
+    <div id="api-notice" class="notice">
+      <strong>⚡ Live Mode:</strong> Enter your free
+      <a href="https://finnhub.io/register" target="_blank" rel="noopener">Finnhub API key</a>
+      below for real-time WebSocket data, or use <strong>Demo Mode</strong> with simulated prices.
+      <div class="api-key-row">
+        <input id="api-key-input" type="text" placeholder="Paste Finnhub API key here (e.g. abc123…)" autocomplete="off" />
+        <button id="connect-btn">Connect Live</button>
+        <button id="demo-btn" class="btn-secondary">Use Demo Mode</button>
+      </div>
+    </div>
+
+    <!-- Connection status bar -->
+    <div id="status-bar" class="status-bar hidden">
+      <span id="status-text">Connecting…</span>
+      <button id="disconnect-btn" class="btn-small">Disconnect</button>
+    </div>
+
+    <!-- Stock cards grid -->
+    <div class="grid" id="cards-grid">
+      <!-- Populated by JS -->
+    </div>
+  </main>
+
+  <footer>
+    <p>Data powered by <a href="https://finnhub.io" target="_blank" rel="noopener">Finnhub</a> · Demo data is simulated for illustration only · Not financial advice</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
