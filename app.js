@@ -15,6 +15,9 @@ const STOCKS = [
   { symbol: 'AMZN',  name: 'Amazon.com Inc.',     basePrice: 192.40, color: '#ffa657' },
 ];
 
+// Allowlist used to guard against prototype-pollution via WebSocket symbol values
+const KNOWN_SYMBOLS = new Set(STOCKS.map(s => s.symbol));
+
 // ── State ─────────────────────────────────────────────────────────────────────
 const state = {
   mode: null,           // 'live' | 'demo'
@@ -242,7 +245,7 @@ function tickDemo() {
   const now = Date.now();
   STOCKS.forEach(s => {
     const d = state.data[s.symbol];
-    // random walk: ±0.3 % per tick
+    // random walk: ±0.3 % per tick; bias 0.497 (< 0.5) for slight upward drift
     const delta = d.price * (Math.random() - 0.497) * 0.006;
     d.price  = +Math.max(d.price + delta, 0.01).toFixed(2);
     d.high   = Math.max(d.high, d.price);
@@ -282,7 +285,9 @@ function startLive(apiKey) {
       if (msg.type !== 'trade' || !msg.data) return;
       msg.data.forEach(trade => {
         const sym = trade.s;
-        const d   = state.data[sym];
+        // Guard: only process symbols we explicitly track to prevent prototype pollution
+        if (!KNOWN_SYMBOLS.has(sym)) return;
+        const d = state.data[sym];
         if (!d) return;
         const price = +trade.p.toFixed(2);
         const ts    = trade.t;          // epoch ms
