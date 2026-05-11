@@ -1,0 +1,239 @@
+/* ── Reset & base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface2: #21262d;
+  --border: #30363d;
+  --text: #e6edf3;
+  --muted: #7d8590;
+  --accent: #58a6ff;
+  --green: #3fb950;
+  --red: #f85149;
+  --yellow: #d29922;
+  --radius: 12px;
+  --shadow: 0 4px 24px rgba(0,0,0,.45);
+}
+
+html { font-size: 15px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Header ───────────────────────────────────────────────── */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 1.5rem 1rem;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.3px; }
+.header-meta { display: flex; align-items: center; gap: .75rem; }
+.subtitle { margin-top: .3rem; color: var(--muted); font-size: .85rem; }
+#clock { font-size: .85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* ── Badges ───────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: .2rem .6rem;
+  border-radius: 20px;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .3px;
+}
+.badge-open   { background: rgba(63,185,80,.15); color: var(--green); border: 1px solid rgba(63,185,80,.3); }
+.badge-closed { background: rgba(248,81,73,.12); color: var(--red);   border: 1px solid rgba(248,81,73,.25); }
+.badge-demo   { background: rgba(210,153,34,.15); color: var(--yellow); border: 1px solid rgba(210,153,34,.3); }
+
+/* ── Main ─────────────────────────────────────────────────── */
+main {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ── API notice ───────────────────────────────────────────── */
+.notice {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  font-size: .875rem;
+  line-height: 1.6;
+}
+.api-key-row {
+  margin-top: .75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  align-items: center;
+}
+#api-key-input {
+  flex: 1;
+  min-width: 220px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  padding: .45rem .75rem;
+  font-size: .85rem;
+  outline: none;
+  transition: border-color .2s;
+}
+#api-key-input:focus { border-color: var(--accent); }
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: .45rem 1rem;
+  font-size: .85rem;
+  font-weight: 600;
+  transition: opacity .15s, transform .1s;
+}
+button:hover  { opacity: .88; }
+button:active { transform: scale(.97); }
+#connect-btn  { background: var(--accent); color: #fff; }
+.btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+.btn-small     { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); font-size: .78rem; padding: .3rem .7rem; }
+
+/* ── Status bar ───────────────────────────────────────────── */
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .5rem 1rem;
+  font-size: .82rem;
+  color: var(--muted);
+  gap: .5rem;
+}
+.status-bar.hidden { display: none; }
+#status-text { flex: 1; }
+
+/* ── Cards grid ───────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ── Stock card ───────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.1rem 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  transition: border-color .2s;
+}
+.card:hover { border-color: var(--accent); }
+
+/* card header row */
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.card-ticker {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+.card-name { font-size: .78rem; color: var(--muted); margin-top: .15rem; }
+
+/* price block */
+.price-block { display: flex; flex-direction: column; align-items: flex-end; }
+.price {
+  font-size: 1.45rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.5px;
+  transition: color .3s;
+}
+.price.flash-up   { color: var(--green); }
+.price.flash-down { color: var(--red); }
+
+.change-row { display: flex; gap: .35rem; align-items: center; font-size: .82rem; margin-top: .15rem; }
+.change-abs, .change-pct {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.up   { color: var(--green); }
+.down { color: var(--red); }
+.flat { color: var(--muted); }
+
+/* stats row */
+.stats-row {
+  display: flex;
+  gap: 1rem;
+  font-size: .78rem;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+.stat span { color: var(--text); font-weight: 600; margin-left: .2rem; }
+
+/* chart container */
+.chart-wrap {
+  position: relative;
+  height: 120px;
+}
+.chart-wrap canvas { border-radius: 6px; }
+
+/* last updated */
+.card-footer {
+  font-size: .72rem;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ── Skeleton loader ──────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, var(--surface2) 25%, var(--border) 50%, var(--surface2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 4px;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+/* ── Footer ───────────────────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: .75rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 560px) {
+  header h1 { font-size: 1.2rem; }
+  .grid { grid-template-columns: 1fr; }
+  .price { font-size: 1.2rem; }
+}
